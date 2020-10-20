@@ -236,16 +236,7 @@ namespace SMILE_XNC
             saveFileDialog1.RestoreDirectory = true;
 
 
-            //SaveFileDialog dlg = new SaveFileDialog();
-            //dlg.Filter = "XML Files (*.xml)|*.xml";
-
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-
-            //SaveFileDialog sfd = new SaveFileDialog();
-            //sfd.Filter = "XML file(*.xml)|*.xml";
-            //sfd.FileName = "";
-            //sfd.RestoreDirectory = true;
-            //if (sfd.ShowDialog() == DialogResult.OK)
             {
                 DataTable dt = new DataTable();
                 dt.TableName = "THONG_TIN_KHACH";
@@ -272,10 +263,7 @@ namespace SMILE_XNC
                        
                     }
                     dt.Rows.Add(cellvalue);
-                    //dt.Columns.Add();
-                    //using (MemoryStream stream = new MemoryStream())
-
-                    //using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8)) ;
+                    
                 }
                 DataSet ds = new DataSet();
                 ds.DataSetName = "KHAI_BAO_TAM_TRU";
@@ -283,20 +271,9 @@ namespace SMILE_XNC
                
                 MessageBox.Show("Sucsecfull!");
 
-                
-                //XmlWriterSettings settings = new XmlWriterSettings();
-                //settings.Indent = true;
-                //settings.Encoding = Encoding.Unicode;
-
-                //XmlDocument doc = new XmlDocument(); // construct your doc here
-                //XmlWriterSettings settings = new XmlWriterSettings();
-                //settings.Encoding = new UTF8Encoding(false);
-                //XmlWriter writer = XmlWriter.Create(stream, settings);
-                //doc.Save(writer);
-                //XmlTextWriter writer = new XmlTextWriter(dlg.FileName, encoding);
-                //writer.Formatting = Formatting.Indented;
-                dt.WriteXml(saveFileDialog1.FileName, XmlWriteMode.WriteSchema,false);
-               
+                var writer = XmlWriter.Create(saveFileDialog1.FileName, new XmlWriterSettings { Encoding = Encoding.UTF8, Indent = true });
+                dt.WriteXml(writer);
+                writer.Close();
 
             }
         }
